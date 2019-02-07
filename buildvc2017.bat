@@ -4,10 +4,10 @@
 :: Change to your LLVM installation
 set "LLVMPath=D:\LLVM"
 :: Change to your Visual Studio 2017 installation
-set "VSPath=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community"
-set "VSVersion=14.10.25017"
+set "VSPath=D:\Microsoft Visual Studio\2017\Community"
+set "VSVersion=14.16.27023"
 :: Change to your Windows Kit version & installation
-set "WinSDKVersion=10.0.15063.0"
+set "WinSDKVersion=10.0.17763.0"
 set "WinSDKPath=C:\Program Files (x86)\Windows Kits\10"
 :: Change this to your resulting exe
 set "OUTPUT=test.exe"
@@ -46,7 +46,7 @@ set LDLIBS= ^
 
 :: Compiling
 @echo on
-@for %%f in (*.cc) do (
+@for %%f in (*.cpp) do (
     clang++.exe "%%~f" -o "%%~nf.o" -c %CFLAGS%
 )
 
