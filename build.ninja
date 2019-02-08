@@ -1,0 +1,25 @@
+compiler = "D:\LLVM-5.0.2-win32\bin\clang++.exe"
+
+linker = "D:\LLVM-5.0.2-win32\bin\lld-link.exe"
+
+tempflags = -std=c++14 -Wall -Wextra -nobuiltininc -nostdinc++ -v -Wno-everything 
+
+cxxflags = -v -Wno-everything -Werror=unknown-argument -nostdinc -nostdlibinc -nobuiltininc -fms-compatibility-version=1800
+
+includeflags = -I "D:\Microsoft Visual Studio 12.0\VC\INCLUDE" -I "C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I "C:\Program Files (x86)\Windows Kits\8.1\include\um" -I "C:\Program Files (x86)\Windows Kits\8.1\include\winrt"
+
+libpaths = -libpath:"D:\Microsoft Visual Studio 12.0\VC\lib" -libpath:"C:\Program Files (x86)\Windows Kits\8.1\Lib\winv6.3\um\x86"
+
+libs = libcpmt.lib libcmt.lib kernel32.lib user32.lib shell32.lib
+
+rule cc
+  command = $compiler $cxxflags $includeflags -c $in -o $out
+
+rule ll
+    command = $linker $libpaths $libs -out:$out $in
+
+build timer.o: cc timer.cpp
+build timer.exe: ll timer.o
+
+
+
