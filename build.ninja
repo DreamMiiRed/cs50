@@ -4,7 +4,7 @@ linker = "D:\LLVM-5.0.2-win32\bin\lld-link.exe"
 
 tempflags = -std=c++14 -Wall -Wextra -nobuiltininc -nostdinc++ -v -Wno-everything 
 
-cxxflags = -v -Wno-everything -Werror=unknown-argument -nostdinc -nostdlibinc -nobuiltininc -fms-compatibility-version=1800
+cxxflags = -Wno-everything -Werror=unknown-argument -nostdinc -nostdlibinc -nobuiltininc -fms-compatibility-version=1800
 
 includeflags = -I "D:\Microsoft Visual Studio 12.0\VC\INCLUDE" -I "C:\Program Files (x86)\Windows Kits\8.1\include\shared" -I "C:\Program Files (x86)\Windows Kits\8.1\include\um" -I "C:\Program Files (x86)\Windows Kits\8.1\include\winrt"
 
@@ -15,11 +15,19 @@ libs = libcpmt.lib libcmt.lib kernel32.lib user32.lib shell32.lib
 rule cc
   command = $compiler $cxxflags $includeflags -c $in -o $out
 
-rule ll
-    command = $linker $libpaths $libs -out:$out $in
+rule ld
+  command = $linker $libpaths $libs -out:$out $in
 
-build timer.o: cc timer.cpp
-build timer.exe: ll timer.o
+rule ccld
+  command = cmd /c "$compiler $cxxflags $includeflags -c $src.cpp -o $src.o && $linker $libpaths $libs -out:$src.exe $src.o && del $src.o"
 
+#src = timer
+#build $src.o: cc $src.cpp
+#build $src.exe: ld $src.o
 
+build $src.exe: ccld
+  src = timer
+
+build $src.exe: ccld
+  src = operators
 
