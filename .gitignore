@@ -10,3 +10,4 @@ CTestTestfile.cmake
 build/
 .ninja_deps
 .ninja_log
+*.exe
