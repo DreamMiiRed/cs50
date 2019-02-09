@@ -29,5 +29,5 @@ build $src.exe: ccld $src.cpp
   src = timer
 
 build $src.exe: ccld $src.cpp
-  src = digitize
+  src = codewars
 
