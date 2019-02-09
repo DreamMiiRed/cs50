@@ -10,7 +10,7 @@ includeflags = -I "D:\Microsoft Visual Studio 12.0\VC\INCLUDE" -I "C:\Program Fi
 
 libpaths = -libpath:"D:\Microsoft Visual Studio 12.0\VC\lib" -libpath:"C:\Program Files (x86)\Windows Kits\8.1\Lib\winv6.3\um\x86"
 
-libs = libcpmt.lib libcmt.lib kernel32.lib user32.lib shell32.lib
+libs = libcpmt.lib libcmt.lib kernel32.lib user32.lib
 
 rule cc
   command = $compiler $cxxflags $includeflags -c $in -o $out
@@ -19,16 +19,15 @@ rule ld
   command = $linker $libpaths $libs -out:$out $in
 
 rule ccld
-  command = cmd /c "$compiler $cxxflags $includeflags -c $src.cpp -o $src.o && $linker $libpaths $libs -out:$src.exe $src.o && del $src.o"
+  command = cmd /c "$compiler $cxxflags $includeflags -c $in -o $src.o && $linker $libpaths $libs -out:$src.exe $src.o && del $src.o"
 
 #src = timer
 #build $src.o: cc $src.cpp
 #build $src.exe: ld $src.o
 
-build $src.exe: ccld
+build $src.exe: ccld $src.cpp
   src = timer
 
-build $src.exe: ccld
-  src = operators
-
+build $src.exe: ccld $src.cpp
+  src = digitize
 
