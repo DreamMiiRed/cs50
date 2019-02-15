@@ -34,3 +34,5 @@ build $src.exe: ccld $src.cpp
 build $src.exe: ccld $src.cpp
   src = pair_array_set
 
+build $src.exe: ccld $src.cpp
+  src = cpy
